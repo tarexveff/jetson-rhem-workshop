@@ -1,10 +1,9 @@
 # Intention
 
-This repository is intended to hold artifacts for creating RHEL Image Mode images 
+This repository is intended to hold artifacts for creating a Flight Control (AKA Red Hat Edge Manager) 
+homelab.  If you want to learn more about this project, check out its repo [here](https://github.com/flightctl/flightctl/blob/main/docs/user/introduction.md)
+Also included in this repository are commands and ContainerFiles for creating NVIDIA Jetson Red Hat Enterprise Linux Image Mode (bootc) images 
 that will be used to image edge devices managed by FlightCtl (aka Red Hat Edge Manager).
-The repo also contains instructions and artifacts for creating a fully self-contained 
-FlightCtl server plus image registry, as well as artifacts supporting a completely 
-airgapped environment.
 
 # FlightCtl
 
