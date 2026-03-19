@@ -40,3 +40,7 @@ With Flight Control now installed, you can generate the config.yaml file that yo
 * flightctl certificate request --signer=enrollment --expiration=365d --output=embedded > config.yaml
 
 Save this config.yaml file for use later!
+
+# Managed Device Image Creation
+
+Currently, building images on an x86 computer for NVIDIA ARM-based devices is very challenging.  I recommend creating an NVIDIA "build server" based on the bootc ContainerFile in this repo (ContainerFile-Jetson-rhem-1.0.2-base).  Bootstrapping this setup can be a challenge if you don't have an ARM server available, though you may be able to perform an initial build using an AWS Graviton instance if you don't have an NVIDIA system available.
