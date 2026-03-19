@@ -6,7 +6,6 @@
 #
 RHEM_ADMIN_USER=admin
 RHEM_ADMIN_PASSWD=admin
-
 #
 # Install Red Hat Edge Manager
 #
@@ -15,6 +14,11 @@ echo "Installing Edge Manager version 1.0.2..."
 dnf clean all
 dnf config-manager --add-repo https://rpm.flightctl.io/flightctl-epel.repo
 dnf install -y flightctl-services-1.0.2-1.el9.x86_64
+
+echo "Setting baseDomain to hostname and starting Edge Manager..."
+
+sed -i "s/\(^[[:space:]]*baseDomain:\).*/\1 $(hostname)/" /etc/flightctl/service-config.yaml
+
 systemctl start flightctl.target
 
 echo "Sleeping 20 seconds..."
