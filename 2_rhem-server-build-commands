@@ -2,6 +2,8 @@
 #
 # Run this script as root
 #
+# !!! MAKE SURE YOUR SYSTEM HOSTNAME IS SET TO SOMETHING OTHER THAN LOCALHOST BEFORE RUNNING !!!
+#
 # Customize username and password for Edge Manager if desired
 #
 RHEM_ADMIN_USER=admin
