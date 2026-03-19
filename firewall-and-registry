@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+#
+# Setup for a local insecure registry and FlightCtl
+#
+# Set your host IP here
+HOSTIP=192.168.1.2
+
+firewall-cmd --permanent --add-port=5000/tcp --add-port=3443/tcp --add-port=7443/tcp
+firewall-cmd --reload
+
+
+cat > /etc/containers/registries.conf.d/999-local-registry.conf <<EOF
+[[registry]]
+location = "$HOSTIP:5000"
+insecure = true
+EOF
+
+# make local copy for later container build
+cp /etc/containers/registries.conf.d/999-local-registry.conf .
+
+#
+# Create quadlet for registry service
+#
+mkdir -p /var/lib/registry
+
+cat > /etc/containers/systemd/local-registry.container <<EOF
+[Unit]
+Description=A simple local registry
+
+[Container]
+Image=docker.io/library/registry:2
+ContainerName=registry
+PublishPort=5000:5000
+Volume=/var/lib/registry:/var/lib/registry:Z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
+EOF
+
+#
+# Launch the local registry
+#
+systemctl daemon-reload
+systemctl start local-registry
