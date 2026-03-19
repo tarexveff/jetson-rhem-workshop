@@ -32,12 +32,10 @@ sleep 20s
 #
 
 echo "Configuring local authentication..."
-podman exec -i flightctl-pam-issuer groupadd flightctl-admin
- 
-podman exec flightctl-pam-issuer adduser ${RHEM_ADMIN_USER}
- 
-podman exec -i flightctl-pam-issuer sh -c "echo '${RHEM_ADMIN_USER}:${RHEM_ADMIN_PASSWD}' | chpasswd"
 
+podman exec -i flightctl-pam-issuer groupadd flightctl-admin
+podman exec flightctl-pam-issuer adduser ${RHEM_ADMIN_USER}
+podman exec -i flightctl-pam-issuer sh -c "echo '${RHEM_ADMIN_USER}:${RHEM_ADMIN_PASSWD}' | chpasswd"
 podman exec -i flightctl-pam-issuer usermod -aG flightctl-admin ${RHEM_ADMIN_USER}
 
 echo "Restarting Edge Manager..."
