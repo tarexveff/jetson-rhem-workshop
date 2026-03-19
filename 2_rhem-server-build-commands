@@ -1,19 +1,37 @@
+#!/usr/bin/env bash
+#
+# Run this script as root
+#
+# Customize username and password for Edge Manager if desired
+#
+RHEM_ADMIN_USER=admin
+RHEM_ADMIN_PASSWD=admin
+
+#
+# Install Red Hat Edge Manager
+#
+
+echo "Installing Edge Manager version 1.0.2..."
 dnf clean all
- 
 dnf config-manager --add-repo https://rpm.flightctl.io/flightctl-epel.repo
- 
 dnf install -y flightctl-services-1.0.2-1.el9.x86_64
- 
 systemctl start flightctl.target
 
-ONCE DONE
+echo "Sleeping 20 seconds..."
+sleep 20s
 
+#
+# Configure local authentication
+#
+
+echo "Configuring local authentication..."
 podman exec -i flightctl-pam-issuer groupadd flightctl-admin
  
-podman exec flightctl-pam-issuer adduser admin
+podman exec flightctl-pam-issuer adduser ${RHEM_ADMIN_USER}
  
-podman exec -i flightctl-pam-issuer sh -c 'echo "admin:admin" | chpasswd'
+podman exec -i flightctl-pam-issuer sh -c 'echo "${RHEM_ADMIN_USER}:${RHEM_ADMIN_PASSWD}" | chpasswd'
 
-podman exec -i flightctl-pam-issuer usermod -aG flightctl-admin admin
- 
+podman exec -i flightctl-pam-issuer usermod -aG flightctl-admin ${RHEM_ADMIN_USER}
+
+echo "Restarting Edge Manager..."
 systemctl restart flightctl.target
