@@ -3,17 +3,14 @@
 This repository is intended to hold artifacts for creating a Flight Control (AKA Red Hat Edge Manager) 
 homelab.  If you want to learn more about this project, check out its repo [here](https://github.com/flightctl/flightctl/blob/main/docs/user/introduction.md).
 Also included in this repository are commands and ContainerFiles for creating NVIDIA Jetson Red Hat Enterprise Linux Image Mode (bootc) images 
-that will be used to image edge devices managed by FlightCtl (aka Red Hat Edge Manager).
+that will be used to flash edge devices managed by Flight Control.
 
-# FlightCtl
-
-For fully internet-connected environments, please follow the documentation in the FlightCtl GitHub repo [here](https://github.com/flightctl/flightctl/blob/main/docs/user/introduction.md)
-However, if you are deploying FlightCtl in a fully airgapped or restrictively proxied enclave, the artifacts 
-in this repo should help you.  There are scripts for installing a Podman/Quadlet instance of
-a Docker private registry on your FlightCtl server if needed, and also scripts for mirroring the 
-FlightCtl, Kind, and Docker registry container images to Podman on that server for installation.
-If you have a container registry available in your enviroment, you can skip the private registry 
-installation portion.
+# Prerequisites
+ 
+* A laptop running Red Hat Enterprise Linux 9.x
+* DHCP server on your home network.  This can be installed on the laptop if needed per [these instructions](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/managing_networking_infrastructure_services/index#setting-up-the-dhcp-service-for-subnets-directly-connected-to-the-dhcp-server_providing-dhcp-services) or you can just let your home network router assign IP addresses.
+* Ideally, a way to connect to your network via cables.  Wireless networking will involve additional steps outside the scope of this repo.
+* One or more NVIDIA Orin-based devices to manage (Nano, NX, AGX)
 
 ## DNS Records
 
