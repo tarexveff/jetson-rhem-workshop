@@ -2,12 +2,15 @@
 # Pull secret should also be pasted into the kickstart file where indicated
 # For simplicity, this script should be run after sudo su - root.  Make sure to log into registry.redhat.io after sudoing.
 
-# This installs mkksiso
+# Install mkksiso
 dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm lorax
 
 podman login registry.redhat.io
 
+# if applicable
 # podman login your-registry.com
+
+# Modify per your environment
 
 export IMAGE_NAME=your-registry.com:tag 
 export USER_PASSWORD=password
