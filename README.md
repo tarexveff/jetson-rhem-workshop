@@ -22,45 +22,8 @@ even lower on RAM if needed.
 Once the system is back up
 
 * sudo dnf install -y git 
-* git clone 
-These instructions assume that this Git repository is cloned or copied to your
-user's home directory on the host (e.g. `~/rhel-bootc-plus-flightctl`). The
-instructions below follow that assumption.
+* git clone https://github.com/tarexveff/jetson-rhem-workshop
 
-Login to the host and then run the following commands to create an SSH
-keypair that you'll use later to access the edge device. Even though you
-really should set a passphrase, skip that when prompted to make the demo
-a little easier to run.
-
-    cd ~/rhel-bootc-plus-flightctl
-    ssh-keygen -t rsa -f ~/.ssh/id_core
-
-Edit the `env.conf` file and make sure the settings are correct. At a
-minimum, you should adjust the credentials for simple content access.
-The full list of options in the `env.conf` file are shown here.
-
-This repo includes content to create a local image repository to serve RHEL image mode
-images.  If you prefer to use another image repository, please ignore all references
-to "local container registry."
-
-| Option           | Description |
-| -----------------| ----------- |
-| SCA_USER         | Your username for Red Hat Simple Content Access |
-| SCA_PASS         | Your password for Red Hat Simple Content Access |
-| EPEL_URL         | The Extra Packages for Enterprise Linux URL |
-| EDGE_USER        | The name of a user on the target edge device |
-| EDGE_PASS        | The plaintext password for the user on the target edge device |
-| BOOT_ISO         | Minimal boot ISO used to create a custom ISO with a custom kickstart file |
-| EDGE_HASH        | A SHA-512 hash of the EDGE_PASS parameter |
-| SSH_PUB_KEY      | The SSH public key of a user on the target edge device |
-| HOSTIP           | The IP address of the local container registry - if relevant|
-| REGISTRYPORT     | The port for the local container registry - if relevant |
-| CONTAINER_REPO   | The fully qualified name for your bootable container repository |
-| REGISTRYINSECURE | Boolean for whether the registry requires TLS |
-
-Make sure to download the RHEL 9.6 `BOOT_ISO` file, e.g. [rhel-9.6-x86_64-boot.iso](https://access.redhat.com/downloads/content/rhel)
-to the local copy of this repository on your RHEL instance
-(e.g. ~/rhel-bootc-image-gen).
 
 Run the following script to register with Red Hat and update the system.
 
