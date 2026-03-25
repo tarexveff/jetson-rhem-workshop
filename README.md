@@ -9,7 +9,7 @@ that will be used to flash edge devices managed by Flight Control.
  
 * A laptop running Red Hat Enterprise Linux 9.x
 * DHCP server on your home network.  This can be installed on the laptop if needed per [these instructions](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/managing_networking_infrastructure_services/index#setting-up-the-dhcp-service-for-subnets-directly-connected-to-the-dhcp-server_providing-dhcp-services) or you can just let your home network router assign IP addresses.
-* Ideally, a way to connect to your network via cables.  Wireless networking will involve additional steps outside the scope of this repo.
+* Ideally, use wired networking.  Wireless networking will involve additional steps outside the scope of this repo.
 * One or more NVIDIA Orin-based devices to manage (Nano, NX, AGX)
 
 # Initial Laptop Setup
