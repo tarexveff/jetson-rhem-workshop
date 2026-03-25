@@ -16,7 +16,7 @@ that will be used to flash edge devices managed by Flight Control.
 Start with a server+GUI RHEL 9.x installation, with the "container management" software group selected.  During RHEL
 installation, configure a regular user with `sudo` privileges on the host.  
 
-**Make sure to set a hostname (other than localhost)**.
+**Make sure to set a hostname on the system other than localhost**.
 
 I have successfully deployed this setup on a NUC with 12 GB RAM and an Intel
 N97 processor, which are pretty minimal specifications, but you can likely go
