@@ -1,6 +1,8 @@
 # Download pull secret for microshift: https://console.redhat.com/openshift/install/pull-secret and place it in the build directory as pull-secret
 # Pull secret should also be pasted into the kickstart file where indicated
-# For simplicity, this script should be run after sudo su - root.  Make sure to log into registry.redhat.io after sudoing.
+# For simplicity, these commands should be run after sudo su - root.  Make sure to log into registry.redhat.io after sudoing.
+# This is not currently intended as a script to run, more of a command reference.
+#
 
 # Install mkksiso
 dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm lorax
