@@ -9,19 +9,31 @@ dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarc
 
 podman login registry.redhat.io
 
-# if applicable
+# If applicable--likely not if using local registry
 # podman login your-registry.com
+
+# If using local registry, make sure to add it as an insecure registry in 
+#   /etc/containers/registries.conf.d/999-local-registry.conf and restart the podman service
+# For example, if your local registry is at $HOSTIP:5000, the file would look like this:
+cat > /etc/containers/registries.conf.d/999-local-registry.conf <<EOF
+[[registry]]
+location = "$HOSTIP:5000"
+insecure = true
+EOF
+
 
 # Modify per your environment
 
 export IMAGE_NAME=your-registry.com:tag 
 export USER_PASSWORD=password
-export PULL_SECRET=./pull-secret
+export PULL_SECRET=./pull-secret # TODO: include instructions for this if necessary
 export KICKSTART=./rhem.ks
+# Options are ContainerFile-Jetson-rhem-1.0.2-base or ContainerFile-Jetson-rhem-1.0.2-with-config
+export CONTAINER_FILE=./ContainerFile-Jetson-rhem-1.0.2-base
 
 mkdir ./output
 
-podman build --authfile "${PULL_SECRET}" -t "${IMAGE_NAME}" --secret "id=pullsecret,src=${PULL_SECRET}"  --build-arg USER_PASSWD="${USER_PASSWORD}" -f ContainerFile-Jetson
+podman build --authfile "${PULL_SECRET}" -t "${IMAGE_NAME}" --secret "id=pullsecret,src=${PULL_SECRET}"  --build-arg USER_PASSWD="${USER_PASSWORD}" -f ${CONTAINER_FILE}
 
 podman run --rm -it     --privileged     --security-opt label=type:unconfined_t     -v /var/lib/containers/storage:/var/lib/containers/storage     -v ./output:/output     registry.redhat.io/rhel9/bootc-image-builder:9.4     --local     --type iso ${IMAGE_NAME}
 
