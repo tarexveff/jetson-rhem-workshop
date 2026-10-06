@@ -1,5 +1,3 @@
-# Download pull secret for microshift: https://console.redhat.com/openshift/install/pull-secret and place it in the build directory as pull-secret
-# Pull secret should also be pasted into the kickstart file where indicated
 # For simplicity, these commands should be run after sudo su - root.  Make sure to log into registry.redhat.io after sudoing.
 # This is not currently intended as a script to run, more of a command reference.
 #
@@ -26,15 +24,13 @@ EOF
 
 export IMAGE_NAME=your-registry.com:tag 
 export USER_PASSWORD=password
-export PULL_SECRET=./pull-secret # TODO: include instructions for this if necessary
 export KICKSTART=./rhem.ks
-# Options are ContainerFile-Jetson-rhem-1.0.2-base or ContainerFile-Jetson-rhem-1.0.2-with-config
-export CONTAINER_FILE=./ContainerFile-Jetson-rhem-1.0.2-base
+export CONTAINER_FILE=./ContainerFile-Jetson
 
 mkdir ./output
 
-podman build --authfile "${PULL_SECRET}" -t "${IMAGE_NAME}" --secret "id=pullsecret,src=${PULL_SECRET}"  --build-arg USER_PASSWD="${USER_PASSWORD}" -f ${CONTAINER_FILE}
+podman build -t "${IMAGE_NAME}" --secret "id=pullsecret,src=${PULL_SECRET}"  --build-arg USER_PASSWD="${USER_PASSWORD}" -f ${CONTAINER_FILE}
 
-podman run --rm -it     --privileged     --security-opt label=type:unconfined_t     -v /var/lib/containers/storage:/var/lib/containers/storage     -v ./output:/output     registry.redhat.io/rhel9/bootc-image-builder:9.4     --local     --type iso ${IMAGE_NAME}
+podman run --rm -it --privileged  --security-opt label=type:unconfined_t -v /var/lib/containers/storage:/var/lib/containers/storage  -v ./output:/output registry.redhat.io/rhel9/bootc-image-builder:9.4 --local --type iso ${IMAGE_NAME}
 
 mkksiso ${KICKSTART} ./output/bootiso/install.iso bootc-plus-kickstart.iso
