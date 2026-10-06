@@ -1,0 +1,18 @@
+$ Make sure you have your config.yaml file from the Edge Manager server in the build directory
+FROM registry.redhat.io/rhel9/rhel-bootc:9.8
+
+# configure an insecure local registry
+RUN  mkdir -p /etc/containers/registries.conf.d
+COPY 999-local-registry.conf /etc/containers/registries.conf.d/
+
+RUN useradd -m -d /var/home/redhat -G wheel redhat && \
+    echo "redhat:redhat" | chpasswd
+
+RUN dnf config-manager --add-repo https://rpm.flightctl.io/flightctl-epel.repo && \
+    dnf -y install python3-pip && pip install podman-compose && \
+    dnf -y install flightctl-agent-1.3.0~rc4-1.el9.x86_64 && \
+    dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm lorax && \
+    dnf -y clean all && \
+    systemctl enable flightctl-agent.service
+
+ADD config.yaml /etc/flightctl/
