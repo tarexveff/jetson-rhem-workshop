@@ -51,7 +51,7 @@ Add the following line to the end of the `config.yaml` file and save it for use 
 
 # Managed Device Image Creation
 
-Currently, building images on an x86 computer for NVIDIA ARM-based devices is very challenging, so I recommend creating an NVIDIA "build server."  Bootstrapping this setup can be a challenge if you don't have an ARM server available, though you may be able to perform an initial build using an AWS Graviton instance if you don't have an NVIDIA system available. 
+Currently, building images on an x86 computer for NVIDIA ARM-based devices is very challenging, so I recommend creating an NVIDIA "build server."  Bootstrapping this setup can be a challenge if you don't have an ARM server available, though you may be able to perform an initial build using an AWS Graviton instance if you don't have an NVIDIA system available. You should also be able to build NVIDIA ARM images using Podman Desktop on an Apple Silicon-based Mac [instructions](https://developers.redhat.com/learn/rhel/build-and-run-bootable-container-image-image-mode-rhel-and-podman-desktop)
 
 Once you have a build server, you can use the resources in the [managed-device-artifacts](https://github.com/tarexveff/jetson-rhem-workshop/tree/main/managed-device-artifacts) folder of this repository to make managed device images:
 * `jetson-bootc-build-commands`: This contains the steps for creating a RHEL Image mode (bootc) ISO.
